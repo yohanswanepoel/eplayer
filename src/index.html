@@ -118,7 +118,7 @@
         async created(){
             let NL_CWD = "/";
             this.folder = this.normaliseFolder(NL_CWD);
-            console.log(NL_CWD);
+            //console.log(NL_CWD);
             this.folder = "/"
             //console.log("Add listeners");
             await this.loadfiles();
@@ -168,7 +168,7 @@
                 this.windowHeight = window.innerHeight
                 this.mediaHeight = parseInt(this.windowHeight * this.canvas_multiplier);
                 this.fileStyle = "width: 100%; height:" + parseInt(this.windowHeight * this.file_browse_multiplier) + "px";
-                console.log(this.fileStyle);
+                //console.log(this.fileStyle);
             },
             showVideos() {
                 this.type = VIDEO;
@@ -279,12 +279,18 @@
                 this.items = [];
                 var dir = this.folder;
 
-                var files = fs.readdirSync(dir);
-                /*files.sort(function(a, b) {
+                var files_read = fs.readdirSync(dir);
+                var files = []
+                for ( var f of files_read){
+                  if (!f.startsWith(".")){
+                    files.push(f)
+                  }
+                }
+                files.sort(function(a, b) {
                             return fs.statSync(dir + b).mtime.getTime() - 
                                     fs.statSync(dir + a).mtime.getTime();
                         });
-                */
+                
                 var counter = 0;
                 for ( var f of files){
                   if (!f.startsWith(".")){
@@ -341,7 +347,7 @@
                             this.file = aItem.name;
                             //Force video load.
                             this.playlist = [];
-                            console.log (aItem.name)
+                            //console.log (aItem.name)
                             this.playlist.push(aItem);
                             this.currentItem = anIndex;
                             var vid = this.$refs.video;
