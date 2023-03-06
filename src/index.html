@@ -41,6 +41,7 @@
             <div>
                 <button type="button" class="btn btn-sm btn-outline-light" v-on:click="back()"><i class="fas fa-undo fa-lg"></i> Back</button>
                 | <button type="button" class="btn btn-outline-light btn-sm" v-on:click='loadfiles_btn()'><i class="fas fa-sort fa-lg"></i> Reload</button>
+                | <button  type="button" class="btn btn-outline-light btn-sm" v-on:click='sortByName()'><i class="fas fa-random fa-lg"></i> Short Name</button>
                 | <button  type="button" class="btn btn-outline-light btn-sm" v-on:click='playallrandom()'><i class="fas fa-random fa-lg"></i> Shuffle</button>
                 | <button v-if='type == 2' type="button" class="btn btn-outline-light btn-sm" v-on:click='loop()'><i class="fas fa-lg" v-bind:class="{ 'fa-play': image_loop==false, 'fa-pause': image_loop }"></i> {{ image_loop_label }}</button>
             </div>
@@ -177,6 +178,16 @@
             showImages(){
                 this.type = IMAGE;
                 this.loadfiles();
+            },
+            sortByName(){
+                console.log("Sort by name")
+                var tmpArr = this.items;
+                // Sorting goes here
+                tmpArr.sort(function(a, b) {
+                            return ('' + a.name).localeCompare(b.name);
+                        });
+                this.items = []
+                this.items = tmpArr;
             },
             filterList(){
                 this.loadfiles();
